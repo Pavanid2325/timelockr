@@ -1,0 +1,58 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+  capsules     Capsule[]
+}
+
+model Capsule {
+  id         String   @id @default(cuid())
+  ownerId    String
+  owner      User     @relation(fields: [ownerId], references: [id])
+  title      String
+  unlockAt   DateTime
+  isUnlocked Boolean  @default(false)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  content    CapsuleContent?
+  media      CapsuleMedia[]
+  recipients CapsuleRecipient[]
+}
+
+model CapsuleContent {
+  id          String  @id @default(cuid())
+  capsuleId   String  @unique
+  capsule     Capsule @relation(fields: [capsuleId], references: [id])
+  message     String
+  contentType String  @default("text/markdown")
+}
+
+model CapsuleMedia {
+  id        String   @id @default(cuid())
+  capsuleId String
+  capsule   Capsule  @relation(fields: [capsuleId], references: [id])
+  fileUrl   String
+  fileType  String
+  size      Int
+  createdAt DateTime @default(now())
+}
+
+model CapsuleRecipient {
+  id         String   @id @default(cuid())
+  capsuleId  String
+  capsule    Capsule  @relation(fields: [capsuleId], references: [id])
+  email      String
+  hasViewed  Boolean  @default(false)
+  viewedAt   DateTime?
+}
