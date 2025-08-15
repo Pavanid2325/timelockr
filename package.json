@@ -1,0 +1,27 @@
+{
+  "name": "timelockr",
+  "version": "1.0.0",
+  "private": true,
+  "description": "time capsule project",
+  "main": "index.js",
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "dev": "concurrently -n WEB,API -c green,cyan \"pnpm --filter web dev\" \"pnpm --filter api dev\"",
+    "build": "pnpm -r build",
+    "lint": "pnpm -r lint",
+    "test": "pnpm -r test"
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.0",
+    "prisma": "^6.14.0"
+  },
+  "keywords": [],
+  "author": "Pavanid2325",
+  "license": "ISC",
+  "packageManager": "pnpm@10.14.0",
+  "dependencies": {
+    "@prisma/client": "^6.14.0"
+  }
+}
