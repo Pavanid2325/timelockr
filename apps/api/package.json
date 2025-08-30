@@ -2,15 +2,22 @@
 	"name": "api",
 	"version": "1.0.0",
 	"devDependencies": {
+		"@types/bcrypt": "^6.0.0",
 		"@types/express": "^4.17.21",
+		"@types/multer": "^2.0.0",
 		"@types/node": "^24.3.0",
 		"prisma": "^5.16.1",
 		"ts-node": "^10.9.2",
 		"typescript": "^5.9.2"
 	},
 	"dependencies": {
+		"@aws-sdk/client-s3": "^3.879.0",
+		"@aws-sdk/s3-request-presigner": "^3.879.0",
 		"@prisma/client": "^5.16.1",
-		"express": "^4.19.2"
+		"bcrypt": "^6.0.0",
+		"express": "^4.19.2",
+		"express-validator": "^7.2.1",
+		"multer": "^2.0.2"
 	},
 	"scripts": {
 		"dev": "prisma migrate dev && ts-node src/server.ts"
